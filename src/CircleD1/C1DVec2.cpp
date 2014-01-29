@@ -13,6 +13,10 @@ C1DVec2 C1DVec2::operator*(float scalar) {
     return C1DVec2(x * scalar, y * scalar);
 }
 
+C1DVec2 operator*(float scalar, C1DVec2 other) {
+    return C1DVec2(other.x * scalar, other.y * scalar);
+}
+
 C1DVec2 C1DVec2::operator/(float scalar) {
     return C1DVec2(x / scalar, y / scalar);
 }

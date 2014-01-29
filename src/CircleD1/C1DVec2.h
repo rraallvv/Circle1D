@@ -7,6 +7,7 @@ struct C1DVec2 {
 	C1DVec2 operator+(C1DVec2 other);
 	C1DVec2 operator-(C1DVec2 other);
 	C1DVec2 operator*(float scalar);
+	friend C1DVec2 operator*(float scalar, C1DVec2 other);
 	C1DVec2 operator/(float scalar);
 	float length();
 	bool operator==(C1DVec2 other);

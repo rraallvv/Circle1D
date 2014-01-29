@@ -23,7 +23,6 @@ struct C1DObject {
     C1DVec2 force;
     C1DObject* mouse;
     C1DJoint* mouse_joint;
-    C1DObject* compound;
 	C1DObject(C1DScene* scene, float x, float y, float size, int flags);
 	bool handle(C1DEvent &evt);
 	void move(C1DVec2 destination);

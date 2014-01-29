@@ -2,7 +2,7 @@
 #include "C1DScene.h"
 
 C1DObject::C1DObject(C1DScene* scene, float x, float y, float size, int flags)
-:scene(scene),pos(C1DVec2(x, y)),size(size),flags(flags),velocity(C1DVec2(0, 0)),force(C1DVec2(0, 0)),mouse(NULL),mouse_joint(NULL),compound(NULL)
+:scene(scene),pos(C1DVec2(x, y)),size(size),flags(flags),velocity(C1DVec2(0, 0)),force(C1DVec2(0, 0)),mouse(NULL),mouse_joint(NULL)
 {
 	scene->add_object(this);
 }
@@ -77,12 +77,11 @@ void C1DObject::handle_collision(C1DObject* other) {
 void C1DObject::handle_collisions(ObjectsMap &objects) {
 	
 	for (ObjectsMap::iterator i = objects.begin(); i != objects.end(); ++i) {
-		for (ObjectsMap::iterator j = objects.begin(); j != objects.end(); ++j) {
+		ObjectsMap::iterator j = i;
+		for (++j; j != objects.end(); ++j) {
             C1DObject* a = i->second;
             C1DObject* b = j->second;
-            if (a->compound != b && b->compound != a) {
-                a->handle_collision(b);
-            }
+			a->handle_collision(b);
         }
     }
 }
