@@ -5,7 +5,7 @@
 
 C1DJoint::C1DJoint(C1DScene* scene, C1DObject* a, C1DObject* b, int flags):scene(scene),a(a),b(b),flags(flags)
 {
-	distance = a->pos.sub(b->pos).length();
+	distance = (a->pos - b->pos).length();
 	scene->add_joint(this);
 }
 
@@ -14,7 +14,7 @@ void C1DJoint::simulate() {
         return;
     }
 	
-    float diff = distance - a->pos.sub(b->pos).length();
+    float diff = distance - (a->pos - b->pos).length();
     if (fabsf(diff) < 0.001) {
         return;
     }
@@ -24,18 +24,18 @@ void C1DJoint::simulate() {
         return;
     }
 	
-    C1DVec2 a_dir = b->pos.sub(a->pos).normalize();
-    C1DVec2 b_dir = a->pos.sub(b->pos).normalize();
+    C1DVec2 a_dir = (b->pos - a->pos).normalize();
+    C1DVec2 b_dir = (a->pos - b->pos).normalize();
 	
     if (flags & FIXED) {
         if (a->flags & C1DObject::FIXED) {
-            b->move(a->pos.add(a_dir.mul(distance)));
+            b->move(a->pos + a_dir * distance);
         } else if (b->flags & C1DObject::FIXED) {
-            a->move(b->pos.add(b_dir.mul(distance)));
+            a->move(b->pos + b_dir * distance);
         } else {
-            C1DVec2 center = a->pos.add(b->pos).div(2.);
-            a->move(center.add(b_dir.mul(distance/2.)));
-            b->move(center.add(a_dir.mul(distance/2.)));
+            C1DVec2 center = (a->pos + b->pos)/2.;
+            a->move(center + b_dir * distance/2.);
+            b->move(center + a_dir * distance/2.);
         }
         return;
     }
@@ -49,12 +49,12 @@ void C1DJoint::simulate() {
     }
 	
     if (diff < 0) {
-        a->apply_force(a_dir.mul(strength));
-        b->apply_force(b_dir.mul(strength));
+        a->apply_force(a_dir * strength);
+        b->apply_force(b_dir * strength);
     } else {
         if (!(flags & RUBBERBAND)) {
-            a->apply_force(b_dir.mul(strength));
-            b->apply_force(a_dir.mul(strength));
+            a->apply_force(b_dir * strength);
+            b->apply_force(a_dir * strength);
         }
     }
 }

@@ -14,7 +14,7 @@ void C1DRenderer::mousedown(float x, float y) {
 
 void C1DRenderer::mousemove(float x, float y) {
 	C1DVec2 pos = mapPos(x, y);
-	scene->handle(C1DEvent(C1DEvent::DRAG, pos.sub(lastPos)));
+	scene->handle(C1DEvent(C1DEvent::DRAG, pos - lastPos));
 	lastPos = pos;
 }
 
