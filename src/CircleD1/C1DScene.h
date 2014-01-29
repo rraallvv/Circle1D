@@ -10,7 +10,7 @@ struct C1DScene {
 	
 	JointsMap joints;
 	JointsMap fixed_joints;
-		
+	
 	void add_object(C1DObject *o);
 	void add_joint(C1DJoint* j);
 	void remove_object(C1DObject* o);

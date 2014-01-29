@@ -15,20 +15,20 @@ void C1DObject::move(C1DVec2 destination) {
 
 void C1DObject::apply_force(C1DVec2 direction) {
     if (!(flags & FIXED)) {
-        force = force.add(direction);
+        force = force + direction;
     }
 }
 
 bool C1DObject::handle(C1DEvent &evt) {
     if (evt.type == C1DEvent::PRESS) {
-        if (pos.sub(evt.pos).length() < size) {
+        if ((pos - evt.pos).length() < size) {
             mouse = new C1DObject(scene, evt.pos.x, evt.pos.y, 10, C1DObject::FIXED);
             mouse_joint = new C1DJoint(scene, this, mouse, C1DJoint::STRONG);
             return true;
         }
     } else if (evt.type == C1DEvent::DRAG) {
         if (mouse != NULL) {
-            mouse->pos = mouse->pos.add(evt.pos);
+            mouse->pos = mouse->pos + evt.pos;
             return true;
         }
     } else if (evt.type == C1DEvent::RELEASE) {
@@ -49,28 +49,28 @@ void C1DObject::simulate() {
     float weight = size * size * 3.;
 	
     if (!(flags & (NOGRAVITY | FIXED))) {
-        force = force.add(C1DVec2(0, 16.2).mul(weight/2000.));
+        force = force + C1DVec2(0, 16.2) * weight/2000.;
     }
 	
-    velocity = velocity.add(force.div(weight).mul(50.));
+    velocity = velocity + force/weight * 50.;
     force = C1DVec2(0, 0);
 	
-    velocity = velocity.mul(0.9);
+    velocity = velocity * 0.9;
 	
-    pos = pos.add(velocity);
+    pos = pos + velocity;
 }
 
 void C1DObject::handle_collision(C1DObject* other) {
     C1DObject* a = this;
     C1DObject* b = other;
-    C1DVec2 dist = a->pos.sub(b->pos);
+    C1DVec2 dist = a->pos - b->pos;
     if ((dist.x*dist.x + dist.y*dist.y) < (a->size + b->size)*(a->size + b->size)) {
         float diff = (a->size + b->size) - dist.length();
-        C1DVec2 a_dir = b->pos.sub(a->pos).normalize();
+        C1DVec2 a_dir = (b->pos - a->pos).normalize();
         C1DVec2 b_dir = dist.normalize();
         float force = diff*.29*fminf(a->size, b->size);
-        a->apply_force(b_dir.mul(force));
-        b->apply_force(a_dir.mul(force));
+        a->apply_force(b_dir * force);
+        b->apply_force(a_dir * force);
     }
 }
 

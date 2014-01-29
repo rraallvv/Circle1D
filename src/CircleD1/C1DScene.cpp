@@ -42,16 +42,16 @@ void C1DScene::simulate() {
 		C1DJoint* j = i->second;
 		j->simulate();
 	}
-		
+	
 	for (ObjectsMap::iterator i = objects.begin(); i != objects.end(); ++i) {
 		C1DObject *o = i->second;
 		o->simulate();
 	}
-		
+	
 	for (JointsMap::iterator i = fixed_joints.begin(); i != fixed_joints.end(); ++i) {
 		C1DJoint* j = i->second;
 		j->simulate();
     }
-		
+	
 	C1DObject::handle_collisions(colliders);
 }

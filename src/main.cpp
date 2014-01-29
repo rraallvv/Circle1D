@@ -73,11 +73,11 @@ int main(int argc, char * argv[])
 	glutIdleFunc(idle);
 	
 	init();
-
+	
 	glutMouseFunc(mouse);
 	glutMotionFunc (motion);
 	glutDisplayFunc(displayFunc);
 	glutMainLoop();
-		
+	
     return 0;
 }
