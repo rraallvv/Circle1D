@@ -143,7 +143,7 @@
 		E4E1B307188A6A7C003280E2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Rhody Lugo";
 			};
 			buildConfigurationList = E4E1B30A188A6A7C003280E2 /* Build configuration list for PBXProject "Circle1D" */;
@@ -251,7 +251,6 @@
 		E4E1B31E188A6A7D003280E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				PRODUCT_NAME = Circle1D;
 			};
 			name = Debug;
@@ -259,7 +258,6 @@
 		E4E1B31F188A6A7D003280E2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				PRODUCT_NAME = Circle1D;
 			};
 			name = Release;
