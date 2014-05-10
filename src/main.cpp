@@ -1,6 +1,6 @@
 #include <iostream>
-#include <GLUT/GLUT.h>
-#include <OpenGL/OpenGL.h>
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
 
 #include "C1DScene.h"
 

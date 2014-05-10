@@ -1,7 +1,7 @@
 #include "C1DRenderer.h"
 
-#include <GLUT/GLUT.h>
-#include <OpenGL/OpenGL.h>
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
 
 C1DVec2 C1DRenderer::mapPos(float x, float y) {
 	return C1DVec2(x, y);
